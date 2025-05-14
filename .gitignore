@@ -1,0 +1,9 @@
+venv
+app.db
+.env
+.env.local
+node_modules
+**/__pycache__/
+__pycache__/
+__pycache__/*
+dist
