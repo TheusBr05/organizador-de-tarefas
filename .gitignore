@@ -6,4 +6,7 @@ node_modules
 **/__pycache__/
 __pycache__/
 __pycache__/*
+/__pycache__/**
+pycache/*
 dist
+backend/src/__pycache__/__init__.cpython-313.pyc
