@@ -13,7 +13,6 @@ class Task(db.Model):
     responsible = db.Column(db.String(100), nullable=True)
     created_at = db.Column(db.DateTime(timezone=True), server_default=func.now())
     updated_at = db.Column(db.DateTime(timezone=True), onupdate=func.now(), server_default=func.now())
-
     parent_id = db.Column(db.Integer, db.ForeignKey('tasks.id'), nullable=True)
     # Corrected backref and remote_side for self-referential relationship
     subtasks = db.relationship('Task', backref=db.backref('parent', remote_side=[id]), lazy='dynamic')

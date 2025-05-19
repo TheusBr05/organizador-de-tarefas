@@ -7,14 +7,17 @@ from flask import Flask, send_from_directory, request # Added request
 from flask_cors import CORS # Added CORS import
 from src.models import db
 from src.routes.task_routes import task_bp
+from dotenv import load_dotenv
+
+load_dotenv()
 
 app = Flask(__name__, static_folder=os.path.join(os.path.dirname(__file__), 'static'))
 CORS(app) # Enabled CORS for all routes
-app.config['SECRET_KEY'] = 'asdf#FGSgvasgf$5$WGT'
+app.config['SECRET_KEY'] = os.getenv('SECRET_KEY')
 
 app.register_blueprint(task_bp, url_prefix='/api/tasks')
 
-app.config['SQLALCHEMY_DATABASE_URI'] = f"sqlite:///{os.path.join(os.path.dirname(__file__), 'app.db')}"
+app.config['SQLALCHEMY_DATABASE_URI'] = os.getenv('DB_URL')
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 db.init_app(app)
 with app.app_context():
