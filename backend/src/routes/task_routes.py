@@ -17,6 +17,7 @@ def create_task():
         status=data.get("status", "Pendente"),
         priority=data.get("priority", "Média"),
         responsible=data.get("responsible"),
+        responsible_id=data.get("responsible_id"),
         parent_id=data.get("parent_id")
     )
     # Handle due_date string to datetime conversion if necessary
@@ -52,6 +53,7 @@ def update_task(task_id):
     task.status = data.get("status", task.status)
     task.priority = data.get("priority", task.priority)
     task.responsible = data.get("responsible", task.responsible)
+    task.responsible_id = data.get("responsible_id", task.responsible_id) # Allow changing responsible
     task.parent_id = data.get("parent_id", task.parent_id) # Allow changing parent
 
     due_date_str = data.get("due_date")
@@ -74,7 +76,7 @@ def delete_task(task_id):
     # or rely on DB cascade if configured in the model/DB.
     # For now, we assume direct deletion. If it has subtasks, they might become orphaned or deleted by cascade.
     # A more robust solution would iterate and delete subtasks or reassign them.
-    
+
     # Explicitly delete subtasks first if not handled by DB cascade
     for subtask in task.subtasks:
         db.session.delete(subtask)
@@ -100,6 +102,7 @@ def create_subtask(parent_task_id):
         status=data.get("status", "Pendente"),
         priority=data.get("priority", "Média"),
         responsible=data.get("responsible"),
+        responsible_id=data.get("responsible_id"),
         parent_id=parent_task_id
     )
     if new_subtask.due_date and isinstance(new_subtask.due_date, str):

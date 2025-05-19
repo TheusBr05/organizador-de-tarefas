@@ -4,4 +4,4 @@ db = SQLAlchemy()
 
 # Import models here to ensure they are registered with SQLAlchemy
 from .task import Task # noqa
-
+from .user import User # noqa

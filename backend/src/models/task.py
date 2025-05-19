@@ -1,5 +1,6 @@
 from sqlalchemy.sql import func
 from . import db
+from .user import User
 
 class Task(db.Model):
     __tablename__ = 'tasks'
@@ -11,6 +12,7 @@ class Task(db.Model):
     status = db.Column(db.String(50), nullable=False, default='Pendente')  # e.g., Pendente, Em Andamento, Concluída
     priority = db.Column(db.String(50), nullable=False, default='Média') # e.g., Alta, Média, Baixa
     responsible = db.Column(db.String(100), nullable=True)
+    responsible_id = db.Column(db.Integer, db.ForeignKey('users.id'), nullable=True)
     created_at = db.Column(db.DateTime(timezone=True), server_default=func.now())
     updated_at = db.Column(db.DateTime(timezone=True), onupdate=func.now(), server_default=func.now())
     parent_id = db.Column(db.Integer, db.ForeignKey('tasks.id'), nullable=True)
@@ -29,6 +31,7 @@ class Task(db.Model):
             'status': self.status,
             'priority': self.priority,
             'responsible': self.responsible,
+            'responsible_id': self.responsible_id,
             'created_at': self.created_at.isoformat() if self.created_at else None,
             'updated_at': self.updated_at.isoformat() if self.updated_at else None,
             'parent_id': self.parent_id
