@@ -1,6 +1,6 @@
 // Arquivo: /home/ubuntu/organizador_atividades/frontend/organizador_atividades_frontend_react_tailwind/src/services/taskService.js
 
-const API_BASE_URL = "http://127.0.0.1:5000/api"; // URL base da API do backend Flask
+const API_BASE_URL = "https://organizador-de-tarefas-backend.onrender.com/api"; // URL base da API do backend Flask
 
 // Função para buscar todas as tarefas principais (com suas subtarefas)
 export const getTasks = async () => {
@@ -24,6 +24,9 @@ interface TaskData {
   priority?: string;
   parent_id?: number;
   status?: string;
+  due_date?: string;
+  responsible?: string;
+  responsible_id?: number;
 }
 
 export const createTask = async (taskData: TaskData) => {
