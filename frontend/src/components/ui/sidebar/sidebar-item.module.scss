@@ -1,0 +1,121 @@
+.item {
+  display: flex;
+  position: relative;
+  flex-direction: column;
+  width: 100%;
+  cursor: pointer;
+
+  .main-item {
+    display: flex;
+    flex-direction: row;
+    border-radius: 8px;
+    width: 100%;
+    color: var(--color-text);
+    text-decoration: none;
+    gap: 8px;
+
+    .icon-div {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      padding: 8px;
+      border-radius: 8px;
+
+      .icon-item {
+        display: flex;
+      }
+    }
+
+    .text-item {
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      margin: 0 8px 0 0;
+      width: 100%;
+      overflow: hidden;
+      white-space: nowrap;
+      text-overflow: ellipsis;
+      transition: width 0.3s ease-in-out;
+    }
+
+    &:hover {
+      background-color: var(--color-bg);
+      color: var(--color-text);
+    }
+  }
+
+  .subitems {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+    padding: 8px 0 8px 24px;
+    border-radius: 8px;
+    cursor: pointer;
+
+    &.collapsed {
+      display: none;
+    }
+  }
+
+  .tooltip {
+    display: none;
+  }
+
+  &.collapsed {
+
+
+    .tooltip {
+      display: flex;
+      position: absolute;
+      background-color: var(--color-bg-secondary);
+      color: var(--color-text);
+      margin-left: 12px;
+      border-radius: 8px;
+      padding: 2px 8px 4px 8px;
+      opacity: 0;
+      visibility: hidden;
+      box-shadow: 0px 0px 1px 1px var(--color-bg);
+      left: 100%;
+      top: 50%;
+      transform: translate(-8px, -50%);
+      transition: visibility 0.3s, opacity 0.3s, transform 0.3s;
+
+      p {
+        display: flex;
+        align-items: center;
+        text-wrap: nowrap;
+        margin: 0;
+      }
+    }
+
+    .main-item {
+      gap: 0;
+      transition: gap 0.3s;
+      position: relative;
+
+      .text-item {
+        width: 0%;
+        position: absolute;
+        left: calc(100% + 8px);
+        top: 50%;
+        transform: translateY(-50%);
+        overflow: hidden;
+        transition: width 0.2s, display 2s;
+      }
+
+      &:hover {
+        .tooltip {
+          top: 50%;
+          transform: translate(4px, -50%);
+          opacity: 1;
+          visibility: visible;
+          transition: visibility 0.2s, opacity 0.2s, transform 0.2s;
+        }
+      }
+    }
+
+    .subitem {
+      display: none;
+    }
+  }
+}
