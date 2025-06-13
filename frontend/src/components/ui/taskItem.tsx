@@ -1,6 +1,6 @@
-import { useToast } from '@/hooks/use-toast'
 import { Task } from '@/pages/tasksManage'
 import { useState } from 'react'
+import { toast } from 'react-toastify'
 
 interface TaskItemProps {
   task: Task;
@@ -28,12 +28,7 @@ function TaskItem({ task, onUpdateTask, onDeleteTask, onAddSubtask, level = 0 }:
       setIsEditing(false);
     } catch (error) {
       console.error("Failed to update task", error);
-      const { toast } = useToast();
-      toast({
-        title: "Erro ao atualizar tarefa",
-        description: "Ocorreu um erro ao tentar atualizar a tarefa.",
-        variant: "destructive",
-      });
+      toast.error("Erro ao atualizar tarefa: " + (error as Error).message);
     }
   };
 
