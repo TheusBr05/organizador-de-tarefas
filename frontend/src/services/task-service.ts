@@ -18,7 +18,7 @@ export const getTasks = async () => {
 };
 
 // Função para criar uma nova tarefa (principal ou subtarefa)
-interface TaskData {
+export interface TaskData {
   title: string;
   description?: string;
   priority?: string;
