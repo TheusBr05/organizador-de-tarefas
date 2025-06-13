@@ -1,6 +1,7 @@
-import TaskItem from '@/components/complex/taskItem'
-import * as taskService from '@/services/taskService'
+import TaskItem from '@/components/ui/taskItem'
+import * as taskService from '@/services/task-service'
 import { useCallback, useEffect, useState } from 'react'
+import { toast } from 'react-toastify'
 
 export interface Task {
   id: number;
@@ -54,20 +55,24 @@ function TasksManage() {
       setNewTaskTitle("");
       setNewTaskDescription("");
       setNewTaskPriority("Média");
+      toast.success("Tarefa criada com sucesso!");
       fetchTasks();
     } catch (err: any) {
       console.error("Failed to create task:", err);
       setError(`Falha ao criar tarefa: ${err.message}`);
+      toast.error(`Falha ao criar tarefa: ${err.message}`);
     }
   };
 
   const handleUpdateTask = async (taskId: number, taskData: Partial<Task>) => {
     try {
       await taskService.updateTask(taskId, taskData);
+      toast.success("Tarefa atualizada com sucesso!");
       fetchTasks();
     } catch (err: any) {
       console.error("Failed to update task:", err);
       setError(`Falha ao atualizar tarefa: ${err.message}`);
+      toast.error(`Falha ao atualizar tarefa: ${err.message}`);
     }
   };
 
@@ -75,9 +80,11 @@ function TasksManage() {
     try {
       await taskService.deleteTask(taskId);
       fetchTasks();
+      toast.success("Tarefa excluída com sucesso!");
     } catch (err: any) {
       console.error("Failed to delete task:", err);
       setError(`Falha ao excluir tarefa: ${err.message}`);
+      toast.error(`Falha ao excluir tarefa: ${err.message}`);
     }
   };
 
